@@ -8,11 +8,75 @@ servers:
 tags:
   - name: Examples
     description: Simple example endpoints
+  - name: Vouch
+    description: Endpoints for receiving information from Vouchfor
   - name: System
     description: System information about the endpoint
   - name: Specification
     description: The swagger API specification
 paths:
+  /webhook:
+    post:
+      tags:
+        - Vouch
+      summary: Webhook for Vouchfor updates
+      requestBody:
+        description: Vouchfor payload
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - event
+              properties:
+                event:
+                  type: object
+                  required:
+                    - name
+                    - vouch
+                  properties:
+                    name:
+                      type: string
+                      example: vouch.published
+                    vouch:
+                      type: object
+                      required:
+                        - externalid
+                        - url
+                      properties:
+                        externalid:
+                          type: string
+                          example: EXTERNAL_ID
+                        url:
+                          type: string
+                          format: uri
+                          example: https://example.com
+
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OkResponse"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/WebhookEmptyResponse"
+                  - $ref: "#/components/schemas/WebhookMisingRequiredPropertyResponse"
+                example:
+                  errors:
+                    [
+                      {
+                        path: "/api/v1/webhook",
+                        message: "unsupported media type undefined",
+                      },
+                    ]
+
   /health:
     get:
       tags:
@@ -24,11 +88,8 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: ok
+                $ref: "#/components/schemas/OkResponse"
+
   /examples:
     get:
       tags:
@@ -90,3 +151,46 @@ components:
         name:
           type: string
           example: no_stress
+    OkResponse:
+      title: ok
+      type: object
+      properties:
+        message:
+          type: string
+          example: ok
+    WebhookEmptyResponse:
+      title: WebhookEmptyResponse
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+                example: /api/v1/webhook
+              message:
+                type: string
+                example: unsupported media type undefined
+    WebhookMisingRequiredPropertyResponse:
+      title: WebhookMisingRequiredPropertyResponse
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: string
+                example: "required.openapi.validation"
+                description: Type of error
+              message:
+                type: string
+                example: "should have required property 'name'"
+                description: A helpful description of the error
+              path:
+                type: string
+                example: ".body.event.name"
+                description: The path to the property that is invalid
