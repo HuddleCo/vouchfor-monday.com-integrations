@@ -8,9 +8,27 @@ servers:
 tags:
   - name: Examples
     description: Simple example endpoints
+  - name: System
+    description: System information about the endpoint
   - name: Specification
     description: The swagger API specification
 paths:
+  /health:
+    get:
+      tags:
+        - System
+      summary: Health status of the server
+      responses:
+        200:
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: ok
   /examples:
     get:
       tags:
