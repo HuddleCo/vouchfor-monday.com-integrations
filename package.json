@@ -10,7 +10,7 @@
     "dev:debug": "nodemon --exec \"node -r ts-node/register --inspect-brk\" server/index.ts | pino-pretty",
     "lint": "eslint -c .eslintrc.js \"{server, test}/**/*.{js,ts,tsx}\" --quiet",
     "lint:fix": "npm run lint -- --fix",
-    "test": "PORT=4000 LOG_ENABLED=false mocha -r ts-node/register test/**/*.ts server/**/*.test.ts --exit",
+    "test": "PORT=4000 LOG_ENABLED=false mocha -r ts-node/register server/**/*.test.ts --exit",
     "test:debug": "npm test -- --inspect-brk",
     "prepare": "husky install",
     "release": "standard-version",
