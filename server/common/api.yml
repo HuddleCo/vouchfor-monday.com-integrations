@@ -4,17 +4,17 @@ info:
   description: A Vouchfor webhook client that integrates with Monday.com
   version: 1.0.0
 servers:
-- url: /api/v1
+  - url: /api/v1
 tags:
-- name: Examples
-  description: Simple example endpoints
-- name: Specification
-  description: The swagger API specification
+  - name: Examples
+    description: Simple example endpoints
+  - name: Specification
+    description: The swagger API specification
 paths:
   /examples:
     get:
       tags:
-      - Examples
+        - Examples
       description: Fetch all examples
       responses:
         200:
@@ -22,14 +22,14 @@ paths:
           content: {}
     post:
       tags:
-      - Examples
+        - Examples
       description: Create a new example
       requestBody:
         description: an example
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ExampleBody'
+              $ref: "#/components/schemas/ExampleBody"
         required: true
       responses:
         200:
@@ -38,14 +38,14 @@ paths:
   /examples/{id}:
     get:
       tags:
-      - Examples
+        - Examples
       parameters:
-      - name: id
-        in: path
-        description: The id of the example to retrieve
-        required: true
-        schema:
-          type: integer
+        - name: id
+          in: path
+          description: The id of the example to retrieve
+          required: true
+          schema:
+            type: integer
       responses:
         200:
           description: Return the example with the specified id
@@ -56,7 +56,7 @@ paths:
   /spec:
     get:
       tags:
-      - Specification
+        - Specification
       responses:
         200:
           description: Return the API specification
@@ -66,7 +66,7 @@ components:
     ExampleBody:
       title: example
       required:
-      - name
+        - name
       type: object
       properties:
         name:
