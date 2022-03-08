@@ -6,8 +6,6 @@ info:
 servers:
   - url: /api/v1
 tags:
-  - name: Examples
-    description: Simple example endpoints
   - name: Vouch
     description: Endpoints for receiving information from Vouchfor
   - name: System
@@ -90,48 +88,6 @@ paths:
               schema:
                 $ref: "#/components/schemas/OkResponse"
 
-  /examples:
-    get:
-      tags:
-        - Examples
-      description: Fetch all examples
-      responses:
-        200:
-          description: Returns all examples
-          content: {}
-    post:
-      tags:
-        - Examples
-      description: Create a new example
-      requestBody:
-        description: an example
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ExampleBody"
-        required: true
-      responses:
-        200:
-          description: Returns all examples
-          content: {}
-  /examples/{id}:
-    get:
-      tags:
-        - Examples
-      parameters:
-        - name: id
-          in: path
-          description: The id of the example to retrieve
-          required: true
-          schema:
-            type: integer
-      responses:
-        200:
-          description: Return the example with the specified id
-          content: {}
-        404:
-          description: Example not found
-          content: {}
   /spec:
     get:
       tags:
@@ -140,17 +96,9 @@ paths:
         200:
           description: Return the API specification
           content: {}
+
 components:
   schemas:
-    ExampleBody:
-      title: example
-      required:
-        - name
-      type: object
-      properties:
-        name:
-          type: string
-          example: no_stress
     OkResponse:
       title: ok
       type: object

@@ -36,6 +36,7 @@ npm install
 ## Run It
 
 #### Run in *development* mode:
+
 Runs the application is development mode. Should not be used in production
 
 ```shell
@@ -74,12 +75,6 @@ npm run test:debug
 ## Try It
 
 * Open your browser to [http://localhost:3000](http://localhost:3000)
-* Invoke the `/examples` endpoint 
-  
-
-```shell
-  curl http://localhost:3000/api/v1/examples
-  ```
 
 ## Debug It
 
