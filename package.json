@@ -11,7 +11,12 @@
     "lint": "eslint -c .eslintrc.js \"{server, test}/**/*.{js,ts,tsx}\" --quiet",
     "lint:fix": "npm run lint -- --fix",
     "test": "PORT=4000 mocha -r ts-node/register test/**/*.ts --exit",
-    "test:debug": "npm test -- --inspect-brk"
+    "test:debug": "npm test -- --inspect-brk",
+    "prepare": "husky install",
+    "release": "standard-version",
+    "release:minor": "standard-version --release-as minor",
+    "release:patch": "standard-version --release-as patch",
+    "release:major": "standard-version --release-as major"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -36,11 +41,13 @@
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.4",
     "mocha": "^9.1.3",
     "nodemon": "^2.0.15",
     "pino-pretty": "^7.2.0",
     "prettier": "^2.5.0",
     "shelljs": "^0.8.4",
+    "standard-version": "^9.3.2",
     "supertest": "^6.1.6",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.2"
